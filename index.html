@@ -75,7 +75,8 @@ h1, h2, h3, h4 {
   margin: 0;
   line-height: 1.2;
 }
-p { margin: 0; }
+p { margin: 0; text-wrap: pretty; }
+h1, h2, h3, h4 { text-wrap: balance; }
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
 button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
@@ -315,7 +316,14 @@ section { padding: 120px 0; position: relative; }
 .stat-card-link { display: block; text-decoration: none; cursor: pointer; }
 .stat-card-link:hover { border-color: var(--accent); transform: translateY(-3px); }
 .stat-card-link .stat-value { color: var(--accent-3); }
-@media (max-width: 760px) { .facts-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 760px) {
+  .facts-grid { grid-template-columns: repeat(2, 1fr); }
+  .facts-grid .stat-card .stat-value { font-size: 19px; }
+}
+@media (max-width: 560px) {
+  .facts-grid { grid-template-columns: 1fr; }
+  .facts-grid .stat-card .stat-value { font-size: 22px; }
+}
 
 /* ============ section header ============ */
 .sec-head { display: grid; grid-template-columns: 1.5fr 1fr; align-items: end; gap: 40px; margin-bottom: 56px; }
@@ -324,6 +332,7 @@ section { padding: 120px 0; position: relative; }
   font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 14px; display: block;
 }
 .sec-head h2 { font-size: clamp(30px, 3.6vw, 46px); text-wrap: balance; }
+@media (max-width: 560px) { .sec-head h2 { font-size: clamp(24px, 7.5vw, 30px); } }
 .sec-head p { color: var(--ink-soft); font-size: 15px; line-height: 1.75; }
 @media (max-width: 760px) { .sec-head { grid-template-columns: 1fr; align-items: flex-start; gap: 18px; margin-bottom: 36px; } }
 
@@ -379,6 +388,13 @@ section { padding: 120px 0; position: relative; }
   .ideal-list li { font-size: 14.5px; }
 }
 @media (max-width: 860px) { .philosophy-grid { grid-template-columns: 1fr; } }
+@media (max-width: 560px) {
+  .philosophy-grid { gap: 14px; }
+  .phil-card { padding: 22px 22px 24px; }
+  .phil-num { font-size: 32px; margin-bottom: 8px; }
+  .phil-card h3 { font-size: 19px; margin-bottom: 8px; }
+  .phil-card p { font-size: 14px; line-height: 1.7; }
+}
 
 /* ============ programs ============ */
 .programs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
@@ -474,18 +490,24 @@ section { padding: 120px 0; position: relative; }
   transition: transform .3s var(--ease), box-shadow .3s var(--ease);
 }
 .sp-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
-.sp-photo { aspect-ratio: 4/3; overflow: hidden; background: var(--bg-deeper); }
-.sp-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s var(--ease); }
+.sp-photo { position: relative; aspect-ratio: 4/4; overflow: hidden; background: var(--bg-deeper); }
+.sp-photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s var(--ease); }
 .sp-card:hover .sp-photo img { transform: scale(1.05); }
-.sp-body { padding: 24px 24px 26px; display: flex; flex-direction: column; gap: 9px; flex: 1; }
-.sp-meta { display: flex; gap: 7px; flex-wrap: wrap; min-height: 26px; align-items: flex-start; }
-.sp-meta span {
-  font-size: 12px; font-weight: 500; padding: 5px 11px; border-radius: 999px;
-  background: color-mix(in srgb, var(--accent) 24%, var(--bg)); color: var(--accent-3);
+.sp-photo::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(34,24,18,0.74) 0%, rgba(34,24,18,0.32) 42%, rgba(34,24,18,0) 72%);
 }
-.sp-card h3 { font-size: 20px; word-break: keep-all; }
-.sp-card p { font-size: 14px; color: var(--ink-soft); line-height: 1.7; word-break: keep-all; }
-.sp-noimg .sp-body { padding-top: 30px; }
+.sp-overlay { position: absolute; left: 20px; right: 20px; bottom: 18px; z-index: 2; display: flex; flex-direction: column; gap: 9px; }
+.sp-meta { display: flex; gap: 7px; flex-wrap: wrap; }
+.sp-meta span {
+  font-size: 11.5px; font-weight: 500; padding: 5px 11px; border-radius: 999px;
+  background: rgba(255,255,255,0.16); color: #fff;
+  border: 1px solid rgba(255,255,255,0.34);
+  backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+}
+.sp-overlay h3 { font-size: 19px; color: #fff; word-break: keep-all; text-shadow: 0 2px 14px rgba(24,16,10,0.45); }
+.sp-body { padding: 18px 22px 22px; display: flex; flex-direction: column; flex: 1; }
+.sp-body p { font-size: 13.5px; color: var(--ink-soft); line-height: 1.7; word-break: keep-all; }
 @media (max-width: 900px) { .special-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 560px) { .special-grid { grid-template-columns: 1fr; } }
 
@@ -554,7 +576,11 @@ section { padding: 120px 0; position: relative; }
 }
 .vl-card p { font-size: 14px; line-height: 1.78; color: var(--ink-soft); word-break: keep-all; }
 @media (max-width: 900px) { .village-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 520px) { .village-grid { grid-template-columns: 1fr; } .vl-photo { aspect-ratio: 4/3; } }
+@media (max-width: 520px) {
+  .village-grid { grid-template-columns: 1fr; }
+  .vl-photo { aspect-ratio: 4/3; }
+  .vl-photo h3, .mini-photo h4, .prog-photo h3 { min-height: 0; align-items: flex-end; }
+}
 
 /* ============ insta CTA strip ============ */
 .sec-insta-cta {
@@ -599,15 +625,36 @@ section { padding: 120px 0; position: relative; }
 .director-text .body:last-of-type { margin-bottom: 32px; }
 .director-sig { font-family: var(--font-display); font-size: 18px; font-weight: 700; }
 .director-sig span { display: block; font-family: var(--font-body); font-size: 13px; font-weight: 400; color: var(--ink-mute); margin-top: 4px; }
+.letter-toggle { display: none; }
 @media (max-width: 860px) {
-  .director-grid { grid-template-columns: 1fr; gap: 36px; }
-  .director-photo { width: 70%; max-width: 260px; }
+  .letter-more {
+    max-height: 0; overflow: hidden; opacity: 0;
+    transition: max-height .5s var(--ease), opacity .35s var(--ease);
+  }
+  .letter-more.open { max-height: 2600px; opacity: 1; }
+  .letter-toggle {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 4px; padding: 12px 20px; border-radius: 999px;
+    background: transparent; border: 1px solid var(--line);
+    font-family: var(--font-body); font-size: 14px; font-weight: 500; color: var(--accent-3);
+    transition: border-color .2s var(--ease), background .2s var(--ease);
+  }
+  .letter-toggle:hover { border-color: var(--accent-3); background: var(--card); }
+  .letter-toggle svg { width: 15px; height: 15px; transition: transform .3s var(--ease); }
+  .letter-toggle.open svg { transform: rotate(180deg); }
+}
+@media (max-width: 860px) {
+  .director-grid { grid-template-columns: 1fr; gap: 28px; }
+  .director-photo { width: 70%; max-width: 260px; margin-left: auto; margin-right: auto; }
+  .director-left .quote { font-size: 21px; }
+  .director-text .body { line-height: 1.85; margin-bottom: 18px; }
 }
 
 /* ============ schedule ============ */
 .schedule-wrap { display: grid; grid-template-columns: 1fr 1.4fr; gap: 64px; align-items: start; }
 .schedule-intro-label { font-family: var(--font-body); font-size: 13px; color: var(--accent-3); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 14px; display: block; }
 .schedule-intro h2 { font-size: clamp(28px, 3.2vw, 40px); margin-bottom: 20px; }
+@media (max-width: 560px) { .schedule-intro h2 { font-size: clamp(24px, 7.5vw, 28px); } }
 .schedule-intro p { color: var(--ink-soft); font-size: 15px; line-height: 1.8; max-width: 340px; }
 .schedule-list { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
 .schedule-item {
@@ -719,7 +766,7 @@ section { padding: 120px 0; position: relative; }
 .staff-total { margin-top: 18px; font-size: 14px; color: var(--ink-mute); }
 .staff-total strong { color: var(--ink); font-weight: 700; }
 @media (max-width: 760px) { .staff-grid { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 440px) { .staff-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .staff-grid { grid-template-columns: repeat(2, 1fr); } }
 
 /* ============ 신입원아 적응 ============ */
 .adapt-wrap { display: grid; grid-template-columns: 1fr 1.25fr; gap: 56px; align-items: start; }
@@ -790,23 +837,13 @@ section { padding: 120px 0; position: relative; }
 @media (max-width: 640px) { .open-banner { padding: 28px 24px; } }
 
 /* ============ gallery ============ */
-.gallery-grid { display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: 180px; gap: 14px; }
-.gallery-grid .tile { border-radius: var(--radius-lg); overflow: hidden; position: relative; transition: transform .4s var(--ease); }
+.gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.gallery-grid .tile { aspect-ratio: 1; border-radius: var(--radius-lg); overflow: hidden; position: relative; transition: transform .4s var(--ease); }
 .gallery-grid .tile:hover { transform: scale(0.98); }
 .gallery-grid .tile img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s var(--ease); }
 .gallery-grid .tile:hover img { transform: scale(1.05); }
-.gallery-grid .tile.a { grid-column: span 2; grid-row: span 2; }
-.gallery-grid .tile.b { grid-column: span 2; grid-row: span 1; }
-.gallery-grid .tile.c { grid-column: span 2; grid-row: span 1; }
-.gallery-grid .tile.d { grid-column: span 2; grid-row: span 2; }
-.gallery-grid .tile.e { grid-column: span 2; grid-row: span 1; }
-.gallery-grid .tile.f { grid-column: span 2; grid-row: span 1; }
-@media (max-width: 860px) {
-  .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 160px; }
-  .gallery-grid .tile.a, .gallery-grid .tile.b, .gallery-grid .tile.c,
-  .gallery-grid .tile.d, .gallery-grid .tile.e, .gallery-grid .tile.f
-  { grid-column: span 1; grid-row: span 1; }
-}
+@media (max-width: 860px) { .gallery-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 560px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } }
 
 /* ============ 급식과 영양 ============ */
 .meal-top { display: grid; grid-template-columns: 1fr 1.15fr; gap: 52px; align-items: center; margin-bottom: 64px; }
@@ -869,10 +906,10 @@ section { padding: 120px 0; position: relative; }
 .insta-feed { border-radius: var(--radius-lg); overflow: hidden; }
 .insta-feed iframe {
   display: block; width: 100%;
-  aspect-ratio: 795 / 737;
+  aspect-ratio: 795 / 1104.985;
   border: 0; overflow: hidden;
 }
-@media (max-width: 640px) { .insta-feed iframe { aspect-ratio: 1 / 1.05; } }
+@media (max-width: 640px) { .insta-feed iframe { aspect-ratio: 1 / 1.32; } }
 
 /* ============ location ============ */
 .location { background: var(--bg-soft); }
@@ -883,6 +920,8 @@ section { padding: 120px 0; position: relative; }
 .info-row { display: grid; grid-template-columns: 120px 1fr; padding: 16px 0; border-bottom: 1px solid var(--line); font-size: 14.5px; }
 .info-row strong { font-weight: 600; color: var(--ink); }
 .info-row .val { color: var(--ink-soft); }
+.info-row .val a { color: var(--accent-3); text-decoration: underline; text-underline-offset: 3px; }
+.info-row .val a:hover { color: var(--accent-2); }
 .location-btns { display: flex; gap: 10px; margin-top: 28px; flex-wrap: wrap; }
 .map-card {
   border-radius: var(--radius-lg); overflow: hidden; min-height: 420px; position: relative;
@@ -908,8 +947,9 @@ section { padding: 120px 0; position: relative; }
 .admission .btn-ghost { color: var(--bg); border-color: color-mix(in srgb, var(--bg) 30%, transparent); }
 .admission .btn-ghost:hover { background: color-mix(in srgb, var(--bg) 10%, transparent); border-color: var(--bg); }
 .admission-btns { display: flex; gap: 12px; flex-wrap: wrap; }
-.admission-ages { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 56px; padding-top: 40px; border-top: 1px solid color-mix(in srgb, var(--bg) 16%, transparent); }
+.admission-ages { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 56px; padding-top: 40px; border-top: 1px solid color-mix(in srgb, var(--bg) 16%, transparent); }
 .admission-age { padding: 14px 22px; border-radius: 999px; background: color-mix(in srgb, var(--bg) 10%, transparent); font-size: 13.5px; display: flex; gap: 10px; align-items: center; color: color-mix(in srgb, var(--bg) 80%, transparent); }
+@media (max-width: 480px) { .admission-ages { grid-template-columns: 1fr; } }
 .admission-age strong { font-family: var(--font-display); font-weight: 700; color: var(--accent); }
 @media (max-width: 760px) {
   .admission { padding: 48px 28px; margin: 0 16px; }
@@ -979,6 +1019,61 @@ footer .song-btn.playing { border-color: var(--accent-3); color: var(--accent-3)
 }
 .cursor-logo img { width: 100%; height: 100%; object-fit: contain; }
 @media (hover: none), (max-width: 960px) { .cursor-logo { display: none; } }
+
+/* ============ 모바일 여백 정리 (세로 길이 줄이기) ============ */
+@media (max-width: 560px) {
+  section { padding: 52px 0; }
+  .sec-head { margin-bottom: 28px; gap: 12px; }
+
+  .stat-card { padding: 14px 16px 16px; }
+  .stat-card .stat-label { margin-bottom: 4px; }
+  .stat-card .stat-value { line-height: 1.3; }
+  .facts-grid, .facility-stats { gap: 10px; }
+  .facility-stats { margin-bottom: 32px; }
+  .facts-grid .stat-card .stat-value { font-size: 19px; }
+  .facts-grid .stat-sub { font-size: 12px; }
+  .val-detail { display: none; }
+
+  .cl { padding: 16px 18px 18px; }
+  .cl-age { margin-bottom: 8px; }
+  .cl h4 { font-size: 17px; }
+  .cl-num { margin-top: 5px; }
+  .class-grid { gap: 10px; }
+
+  .staff-card { padding: 16px 10px; }
+  .staff-grid { gap: 10px; }
+  .staff-wrap { margin-top: 40px; padding-top: 32px; }
+
+  .yr { padding: 16px 18px 18px; }
+  .year-grid { gap: 10px; }
+
+  .care-card { padding: 24px 22px 26px; }
+  .care-grid { gap: 14px; }
+  .care-list { gap: 9px; }
+
+  .mc { padding: 16px 18px; }
+  .meal-care { gap: 10px; margin-top: 28px; }
+  .meal-ol { gap: 11px; margin-bottom: 20px; }
+  .meal-top { gap: 24px; margin-bottom: 32px; }
+
+  .step { padding: 14px 18px; gap: 14px; }
+  .step-line { gap: 9px; }
+  .step-n { width: 40px; height: 40px; font-size: 13px; }
+
+  .mini-card, .vl-card, .prog-card { gap: 12px; }
+  .mini-grid, .village-grid, .programs-grid, .special-grid { gap: 14px; }
+  .sp-body { padding: 18px 20px 20px; }
+
+  .ideal-wrap { margin-top: 32px; padding-top: 26px; gap: 24px; }
+  .ideal-list { gap: 10px; }
+  .facility-wrap { gap: 24px; }
+  .report-wrap { margin-top: 40px; padding-top: 32px; gap: 24px; }
+  .open-banner { padding: 26px 22px; }
+  .open-points { margin-top: 24px; padding-top: 22px; gap: 18px; }
+  .open-foot { margin-top: 22px; padding-top: 18px; }
+  .foot-grid { gap: 22px; margin-bottom: 36px; }
+  footer { padding: 44px 0 32px; margin-top: 56px; }
+}
 
 /* ============ 스크롤 나타남 ============ */
 .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
@@ -1137,11 +1232,11 @@ footer .song-btn.playing { border-color: var(--accent-3); color: var(--accent-3)
       </div>
       <a href="#location" class="stat-card stat-card-link">
         <span class="stat-label">위치</span>
-        <span class="stat-value">경남 산청군 신안면<span class="stat-sub">원지강변로 95</span></span>
+        <span class="stat-value">경남 산청군 신안면<br><span class="stat-sub">원지강변로 95</span></span>
       </a>
       <a href="tel:055-973-9970" class="stat-card stat-card-link">
         <span class="stat-label">전화</span>
-        <span class="stat-value">055-973-9970</span>
+        <span class="stat-value">055<br>973 9970</span>
       </a>
     </div>
   </div>
@@ -1155,7 +1250,7 @@ footer .song-btn.playing { border-color: var(--accent-3); color: var(--accent-3)
         <span class="label">원훈</span>
         <h2>밝고, 지혜롭고,<br>건강한 어린이</h2>
       </div>
-      <p>신안어린이집이 아이들에게 바라는 세 가지 모습입니다.<br>거창한 목표보다, 하루하루를 잘 지내는 아이가 되기를 바랍니다.</p>
+      <p>신안어린이집이 아이들에게 바라는<br>세 가지 모습입니다.<br>거창한 목표보다,<br>하루하루를<br>잘 지내는 이야기가 되기를 바랍니다.</p>
     </div>
     <div class="philosophy-grid">
       <div class="phil-card">
@@ -1216,33 +1311,39 @@ footer .song-btn.playing { border-color: var(--accent-3); color: var(--accent-3)
       <p class="body">
         안녕하세요. 신안어린이집 원장입니다.
       </p>
-      <p class="body">
-        1999년 문을 연 신안어린이집은 오랜 시간 지역의 아이들과 함께<br>
-        성장해 온 역사 깊은 어린이집입니다.<br>
-        수많은 아이의 첫걸음과 웃음, 성장을 가까이에서 지켜보며<br>
-        아이들의 소중한 하루를 한결같이 품어왔습니다.
-      </p>
-      <p class="body">
-        저 역시 신안어린이집이 걸어온 오랜 시간 속에서<br>
-        스무해 넘게 아이들의 곁을 지켜왔습니다.<br>
-        해마다 새로운 이름을 외우고, 낯설어 우는 아이의 손을 잡고,<br>
-        어느새 훌쩍 자라 졸업하는 아이를 배웅했습니다.<br>
-        그 시간이 저에게 가르쳐 준 것이 하나 있습니다.<br>
-        아이는 재촉한다고 빨리 자라지 않는다는 것,<br>
-        기다려 준 만큼 저마다의 속도로 단단히 자란다는 것입니다.
-      </p>
-      <p class="body">
-        신안어린이집은 아이를 어른의 기준에 맞추기보다<br>
-        아이가 바라보는 높이에서 하루를 살펴보려 합니다.<br>
-        왜 자꾸 움직이는지, 무엇을 오래 바라보는지, 어떤 놀이를 하고 싶은지<br>
-        세심히 들여다보겠습니다.<br>
-        아이들의 생각과 마음이 놀이 속에서 자연스럽게 드러날 수 있도록<br>
-        공간과 시간을 함께 만들고, 낯선 하루에도 천천히 편안함을 느낄 수 있도록<br>
-        따뜻하게 곁을 지키겠습니다.
-      </p>
-      <div class="director-sig">
-        신안어린이집 원장 드림
+      <div class="letter-more" id="letterMore">
+        <p class="body">
+          1999년 문을 연 신안어린이집은 오랜 시간 지역의 아이들과 함께<br>
+          성장해 온 역사 깊은 어린이집입니다.<br>
+          수많은 아이의 첫걸음과 웃음, 성장을 가까이에서 지켜보며<br>
+          아이들의 소중한 하루를 한결같이 품어왔습니다.
+        </p>
+        <p class="body">
+          저 역시 신안어린이집이 걸어온 오랜 시간 속에서<br>
+          스무해 넘게 아이들의 곁을 지켜왔습니다.<br>
+          해마다 새로운 이름을 외우고, 낯설어 우는 아이의 손을 잡고,<br>
+          어느새 훌쩍 자라 졸업하는 아이를 배웅했습니다.<br>
+          그 시간이 저에게 가르쳐 준 것이 하나 있습니다.<br>
+          아이는 재촉한다고 빨리 자라지 않는다는 것,<br>
+          기다려 준 만큼 저마다의 속도로 단단히 자란다는 것입니다.
+        </p>
+        <p class="body">
+          신안어린이집은 아이를 어른의 기준에 맞추기보다<br>
+          아이가 바라보는 높이에서 하루를 살펴보려 합니다.<br>
+          왜 자꾸 움직이는지, 무엇을 오래 바라보는지, 어떤 놀이를 하고 싶은지<br>
+          세심히 들여다보겠습니다.<br>
+          아이들의 생각과 마음이 놀이 속에서 자연스럽게 드러날 수 있도록<br>
+          공간과 시간을 함께 만들고, 낯선 하루에도 천천히 편안함을 느낄 수 있도록<br>
+          따뜻하게 곁을 지키겠습니다.
+        </p>
+        <div class="director-sig">
+          신안어린이집 원장 드림
+        </div>
       </div>
+      <button type="button" class="letter-toggle" id="letterToggle" onclick="toggleLetter()">
+        <span>편지 전체 보기</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
     </div>
   </div>
 </section>
@@ -1280,7 +1381,7 @@ footer .song-btn.playing { border-color: var(--accent-3); color: var(--accent-3)
           <div class="info-row"><strong>개원</strong><span class="val">1999년</span></div>
           <div class="info-row"><strong>보육정원</strong><span class="val">63명</span></div>
           <div class="info-row"><strong>시설</strong><span class="val">보육실 5 · 창고 3 · 화장실 2<br>강당(유희실) · 놀이터 · 급식방 · 조리실 · 자료방 · 양호실(교사실 · 상담실)</span></div>
-          <div class="info-row"><strong>통학차량</strong><span class="val">운행 (운영자 · 운전자 · 동승자 안전교육 이수)</span></div>
+          <div class="info-row"><strong>통학차량</strong><span class="val">운행<span class="val-detail"> (운영자 · 운전자 · 동승자 안전교육 이수)</span></span></div>
         </div>
       </div>
     </div>
@@ -1331,7 +1432,7 @@ footer .song-btn.playing { border-color: var(--accent-3); color: var(--accent-3)
         <span class="label">놀이로 자라는 교육과정</span>
         <h2>아이들의 놀이가<br>곧 배움의 시작입니다</h2>
       </div>
-      <p>국가 수준의 보육과정인 「0-5세 어린이집 표준보육과정」을 토대로,<br>아이가 스스로 고르고 몰입하는 놀이 속에서 배움이 일어나도록 돕습니다.</p>
+      <p>국가 수준의 보육과정인 「0-5세 어린이집 표준보육과정」을 토대로,<br>아이가 스스로 고르고 몰입하는 놀이 속에서<br>배움이 일어나도록 돕습니다.</p>
     </div>
 
     <p class="curr-quote">교육과정은 교사의 마음과 시선에서 시작되며,<br>하루의 매 순간 교사의 몸과 마음에 담겨 아이들과 함께 살아갑니다.</p>
@@ -1382,9 +1483,9 @@ footer .song-btn.playing { border-color: var(--accent-3); color: var(--accent-3)
       <div class="report-text">
         <span class="feature-label">놀이보고서</span>
         <h3>교육과정 평가!<br>또 다른 놀이의 시작</h3>
-        <p>어린이집의 교육은 계획–실천–평가가 유기적으로 연결된<br>순환 과정을 통해 이루어집니다.</p>
+        <p>어린이집의 교육은 계획–실천–평가가<br>유기적으로 연결된 순환 과정을 통해 이루어집니다.</p>
         <p>놀이보고서는 한 달 동안 아이들이 무엇에 관심을 보였는지,<br>어떤 놀이에 깊이 빠져 있었는지,<br>그 과정에서 무엇을 경험하고 배웠는지를<br>기록하여 함께 나누는 이야기입니다.<br>기록을 통해 아이들의 놀이를 돌아보고,<br>그 안에서 발견한 관심과 배움을 다음 달 계획에 반영합니다.<br>이렇게 이어진 놀이는 아이들의 생각과 경험을 따라<br>조금씩 더 깊어지고 넓어집니다.</p>
-        <p class="report-close">이처럼 아이들은<br>자신의 관심과 선택, 놀이와 경험을 통해 보육과정을 함께 만들어 갑니다.</p>
+        <p class="report-close">이처럼 아이들은<br>자신의 관심과 선택, 놀이와 경험을 통해<br>보육과정을 함께 만들어 갑니다.</p>
       </div>
       <a class="report-photo" href="images/놀이보고서.jpg" target="_blank" rel="noopener">
         <img src="images/놀이보고서.jpg" alt="꽃잎소리반 놀이보고서 — 즐거운 우리반과 친구들">
@@ -1412,28 +1513,28 @@ footer .song-btn.playing { border-color: var(--accent-3); color: var(--accent-3)
           <img src="images/오감융합놀이.jpg" alt="오감융합놀이">
           <h4>오감융합놀이</h4>
         </div>
-        <p>두부, 알로에, 국수, 옥수수, 귤. 먹는 것으로만 알던 재료를 손으로 만지고 뭉개며 감각을 깨웁니다.</p>
+        <p>두부, 알로에, 국수, 옥수수, 귤 등 식재료를<br>손으로 만지고 뭉개며 감각을 깨웁니다.</p>
       </div>
       <div class="mini-card">
         <div class="mini-photo">
           <img src="images/그림책으로만나는세상.jpg" alt="그림책으로 만나는 세상">
           <h4>그림책으로<br>만나는 세상</h4>
         </div>
-        <p>달마다 그림책 한 권을 깊이 만납니다. 책에서 시작해 놀이로 이어집니다.</p>
+        <p>달마다 그림책 한 권을 깊이 만납니다.<br>책에서 시작해 놀이로 이어집니다.</p>
       </div>
       <div class="mini-card">
         <div class="mini-photo">
           <img src="images/꼬마정원사.jpg" alt="꼬마 정원사">
           <h4>꼬마 정원사</h4>
         </div>
-        <p>원 앞 텃밭에 씨앗을 심고 물을 줍니다. 심은 것이 자라고 열매가 되는 과정을 한 해 동안 지켜봅니다.</p>
+        <p>원 앞 텃밭에 씨앗을 심고 물을 줍니다.<br>심은 것이 자라고 열매가 되는 과정을 한 해 동안 지켜봅니다.</p>
       </div>
       <div class="mini-card">
         <div class="mini-photo">
           <img src="images/소중한날.jpg" alt="온 우주를 품은 너의 날">
           <h4>온 우주를 품은<br>너의 날</h4>
         </div>
-        <p>생일을 맞은 아이에게는 유기그릇에 정식으로 상을 차립니다. 오늘 하루만큼은 온전히 주인공입니다.</p>
+        <p>생일을 맞은 아이에게는 유기그릇에 정식으로 상을 차립니다.<br>오늘 하루만큼은 온전히 주인공입니다.</p>
       </div>
     </div>
   </div>
@@ -1452,38 +1553,54 @@ footer .song-btn.playing { border-color: var(--accent-3); color: var(--accent-3)
     <div class="special-grid">
 
       <div class="sp-card">
-        <div class="sp-photo"><img src="images/영유아체육.jpg" alt="영유아 체육 수업"></div>
+        <div class="sp-photo">
+          <img src="images/영유아체육.jpg" alt="영유아 체육 수업">
+          <div class="sp-overlay">
+            <div class="sp-meta"><span>만 2~5세</span></div>
+            <h3>영유아 체육</h3>
+          </div>
+        </div>
         <div class="sp-body">
-          <div class="sp-meta"><span>만 2~5세</span></div>
-          <h3>영유아 체육</h3>
           <p>기초 신체활동을 중심으로 마음껏 움직이며 몸의 즐거움을 배웁니다.</p>
         </div>
       </div>
 
       <div class="sp-card">
-        <div class="sp-photo"><img src="images/키즈스피치.jpg" alt="키즈 스피치 수업"></div>
+        <div class="sp-photo">
+          <img src="images/키즈스피치.jpg" alt="키즈 스피치 수업">
+          <div class="sp-overlay">
+            <div class="sp-meta"><span>만 3~5세</span></div>
+            <h3>키즈 스피치</h3>
+          </div>
+        </div>
         <div class="sp-body">
-          <div class="sp-meta"><span>만 3~5세</span></div>
-          <h3>키즈 스피치</h3>
           <p>내 생각을 말로 옮기고, 친구들 앞에서 이야기해 보는 연습을 합니다.</p>
         </div>
       </div>
 
       <div class="sp-card">
-        <div class="sp-photo"><img src="images/한국인영어강사.jpg" alt="놀이영어 수업"></div>
+        <div class="sp-photo">
+          <img src="images/한국인영어강사.jpg" alt="놀이영어 수업">
+          <div class="sp-overlay">
+            <div class="sp-meta"><span>만 2~5세</span><span>한국인 · 원어민</span></div>
+            <h3>놀이영어</h3>
+          </div>
+        </div>
         <div class="sp-body">
-          <div class="sp-meta"><span>만 2~5세</span><span>한국인 · 원어민</span></div>
-          <h3>놀이영어</h3>
-          <p>한솔 TalkTalk과 Oxford Reading Tree로, 한국인 선생님과 원어민 선생님을 함께 만납니다.</p>
+          <p>한솔 TalkTalk과 Oxford Reading Tree로,<br>한국인 선생님과 원어민 선생님을 함께 만납니다.</p>
         </div>
       </div>
 
       <div class="sp-card">
-        <div class="sp-photo"><img src="images/코앤코.jpg" alt="코앤코 뮤직 수업"></div>
+        <div class="sp-photo">
+          <img src="images/코앤코.jpg" alt="코앤코 뮤직 수업">
+          <div class="sp-overlay">
+            <div class="sp-meta"><span>만 2~5세</span></div>
+            <h3>코앤코 뮤직</h3>
+          </div>
+        </div>
         <div class="sp-body">
-          <div class="sp-meta"><span>만 2~5세</span></div>
-          <h3>코앤코 뮤직</h3>
-          <p>음악을 중심으로 몸짓과 표현이 함께 어우러지는 통합 예술 활동입니다.</p>
+          <p>음악을 중심으로 몸짓과 표현이 함께 어우러지는<br>통합 예술 활동입니다.</p>
         </div>
       </div>
 
@@ -1500,7 +1617,8 @@ footer .song-btn.playing { border-color: var(--accent-3); color: var(--accent-3)
         <h2>걸어서 만나는<br>동네의 배움</h2>
       </div>
       <p>신안어린이집은 도서관과 수영장, 산책길 등<br>
-      아이들의 배움이 이어지는 다양한 공간과 가까이 자리하고 있습니다.<br>
+      아이들의 배움이 이어지는 다양한 공간과<br>
+      가까이 자리하고 있습니다.<br>
       아이들은 어린이집 문을 나서 걸어서 지역을 만나고,<br>
       익숙한 동네 곳곳에서 일상 속 배움을 넓혀갑니다.</p>
     </div>
@@ -1510,28 +1628,28 @@ footer .song-btn.playing { border-color: var(--accent-3); color: var(--accent-3)
           <img src="images/지리산도서관.jpg" alt="지리산 도서관 방문">
           <h3>지리산 도서관</h3>
         </div>
-        <p>매주 한 번, 걸어서 도서관에 갑니다. 책과 친해지는 경험이 습관이 됩니다.</p>
+        <p>매주 한 번, 걸어서 도서관에 갑니다.<br>책과 친해지는 경험이 습관이 됩니다.</p>
       </div>
       <div class="vl-card">
         <div class="vl-photo">
           <img src="images/신안강변산책.jpg" alt="신안 강변산책">
           <h3>신안 강변산책</h3>
         </div>
-        <p>어린이집 앞 강변길을 걸으며 계절과 자연을 만납니다. 봄에는 온통 벚꽃입니다.</p>
+        <p>어린이집 앞 강변길을 걸으며 계절과 자연을 만납니다.<br>봄에는 온통 벚꽃입니다.</p>
       </div>
       <div class="vl-card">
         <div class="vl-photo">
           <img src="images/실내공공놀이터.jpg" alt="실내 공공놀이터">
           <h3>실내 공공놀이터</h3>
         </div>
-        <p>가까운 실내 놀이공간에서 날씨와 상관없이 마음껏 움직이고 놀이합니다.</p>
+        <p>가까운 실내 놀이공간에서 날씨와 상관없이<br>마음껏 움직이고 놀이합니다.</p>
       </div>
       <div class="vl-card">
         <div class="vl-photo">
           <img src="images/남부문화체육센터수영장.jpg" alt="남부문화 체육센터 수영장">
           <h3>남부문화 체육센터<br>수영장</h3>
         </div>
-        <p>여름이면 유아반은 걸어서 수영장까지 다녀옵니다.</p>
+        <p>여름이 오면 유아반은 걸어서 수영장으로 향합니다.<br>시원한 물놀이로 여름을 만끽합니다.</p>
       </div>
     </div>
   </div>
@@ -1544,7 +1662,7 @@ footer .song-btn.playing { border-color: var(--accent-3); color: var(--accent-3)
       <div class="schedule-intro">
         <span class="schedule-intro-label">하루의 흐름</span>
         <h2>아이의 하루,<br>리듬이 있는 시간</h2>
-        <p>예측 가능한 하루의 리듬은 아이에게 안정감을 줍니다. 놀이와 쉼이 자연스럽게 이어지도록 하루를 짭니다.</p>
+        <p>예측 가능한 하루의 리듬은 아이에게 안정감을 줍니다.<br>놀이와 쉼이 자연스럽게 이어지도록 하루를 짭니다.</p>
         <div class="time-blocks">
           <div class="tb"><strong>오전 통합보육</strong><span>07:30 – 09:00</span></div>
           <div class="tb tb-main"><strong>기본보육</strong><span>09:00 – 16:00</span></div>
@@ -1553,13 +1671,13 @@ footer .song-btn.playing { border-color: var(--accent-3); color: var(--accent-3)
       </div>
       <div class="schedule-list">
         <div class="schedule-item"><span class="schedule-time">07:30</span><span class="schedule-title">등원 및 맞이</span><span class="schedule-desc">선생님과 눈을 맞추며 인사하고, 건강 상태와 기분을 살피며 편안하게 하루를 시작합니다.</span></div>
-        <div class="schedule-item"><span class="schedule-time">09:00</span><span class="schedule-title">오전 자유놀이</span><span class="schedule-desc">아이들이 자신의 흥미와 관심에 따라 놀이를 선택하고 자유롭게 탐색합니다.</span></div>
+        <div class="schedule-item"><span class="schedule-time">09:00</span><span class="schedule-title">오전 자유놀이</span><span class="schedule-desc">아이들이 자신의 흥미와 관심에 따라<br>놀이를 선택하고 자유롭게 탐색합니다.</span></div>
         <div class="schedule-item"><span class="schedule-time">10:00</span><span class="schedule-title">오전 간식</span><span class="schedule-desc">준비된 간식을 함께 먹으며 즐겁고 건강한 식습관을 익힙니다.</span></div>
-        <div class="schedule-item"><span class="schedule-time">10:20</span><span class="schedule-title">놀이 중심 활동 및 실외놀이</span><span class="schedule-desc">아이들의 흥미에서 시작된 놀이를 충분히 이어갑니다. 반별 상황에 따라 바깥놀이, 산책, 도서관 방문 등 다양한 경험이 함께 이루어집니다.</span></div>
-        <div class="schedule-item"><span class="schedule-time">12:20</span><span class="schedule-title">점심 식사</span><span class="schedule-desc">균형 있게 준비한 점심을 함께 먹으며 음식의 맛과 즐거움을 경험하고, 바른 식습관을 익힙니다.</span></div>
-        <div class="schedule-item"><span class="schedule-time">13:00</span><span class="schedule-title">낮잠 및 휴식·유아반 놀이</span><span class="schedule-desc">영아는 편안하게 낮잠과 휴식을 취합니다. 유아는 오전 놀이를 확장하거나 특별활동에 참여하며, 상황에 따라 바깥놀이와 산책을 이어갑니다.</span></div>
+        <div class="schedule-item"><span class="schedule-time">10:20</span><span class="schedule-title">놀이 중심 활동 및 실외놀이</span><span class="schedule-desc">아이들의 흥미에서 시작된 놀이를 충분히 이어갑니다.<br>반별 상황에 따라 바깥놀이, 산책, 도서관 방문 등<br>다양한 경험이 함께 이루어집니다.</span></div>
+        <div class="schedule-item"><span class="schedule-time">12:20</span><span class="schedule-title">점심 식사</span><span class="schedule-desc">균형 있게 준비한 점심을 함께 먹으며<br>음식의 맛과 즐거움을 경험하고, 바른 식습관을 익힙니다.</span></div>
+        <div class="schedule-item"><span class="schedule-time">13:00</span><span class="schedule-title">낮잠 및 휴식·유아반 놀이</span><span class="schedule-desc">영아는 편안하게 낮잠과 휴식을 취합니다.<br>유아는 오전 놀이를 확장하거나 특별활동에 참여하며,<br>상황에 따라 바깥놀이와 산책을 이어갑니다.</span></div>
         <div class="schedule-item"><span class="schedule-time">15:00</span><span class="schedule-title">오후 간식 및 하원 준비</span><span class="schedule-desc">오후 간식을 먹고, 하루를 돌아보며 개인 소지품을 정리하고 하원을 준비합니다.</span></div>
-        <div class="schedule-item"><span class="schedule-time">16:00</span><span class="schedule-title">연장보육 및 순차 하원</span><span class="schedule-desc">편안한 놀이를 이어가며 하루 이야기를 나누고 안전하게 순차적으로 하원합니다.</span></div>
+        <div class="schedule-item"><span class="schedule-time">16:00</span><span class="schedule-title">연장보육 및 순차 하원</span><span class="schedule-desc">편안한 놀이를 이어가며 하루 이야기를 나누고<br>안전하게 순차적으로 하원합니다.</span></div>
       </div>
     </div>
   </div>
@@ -1653,12 +1771,18 @@ footer .song-btn.playing { border-color: var(--accent-3); color: var(--accent-3)
       <p>아이들이 행복하게 생활하는 일상을 담았습니다.</p>
     </div>
     <div class="gallery-grid">
-      <div class="tile a"><img src="images/벚꽃세로.jpg" alt="벚꽃길에 자리한 신안어린이집"></div>
-      <div class="tile b"><img src="images/로비.jpg" alt="1층 로비"></div>
-      <div class="tile c"><img src="images/그림책공간.jpg" alt="그림책 공간"></div>
-      <div class="tile d"><img src="images/그림책공간2.jpg" alt="아늑한 독서 공간"></div>
-      <div class="tile e"><img src="images/영유아체육.jpg" alt="영유아 체육 활동"></div>
-      <div class="tile f"><img src="images/키즈스피치.jpg" alt="키즈 스피치 활동"></div>
+      <div class="tile"><img src="images/모습01.jpg" alt="신안강변 벚꽃길을 걷는 아이들"></div>
+      <div class="tile"><img src="images/모습02.jpg" alt="그림책 공간"></div>
+      <div class="tile"><img src="images/모습03.jpg" alt="놀이터에서 뛰노는 아이들"></div>
+      <div class="tile"><img src="images/모습04.jpg" alt="색깔비 물놀이 활동"></div>
+      <div class="tile"><img src="images/모습05.jpg" alt="교실에서 즐기는 놀이"></div>
+      <div class="tile"><img src="images/모습06.jpg" alt="씨앗 자화상 만들기"></div>
+      <div class="tile"><img src="images/모습07.jpg" alt="알로에 오감놀이"></div>
+      <div class="tile"><img src="images/모습08.jpg" alt="텃밭에 물 주는 아이들"></div>
+      <div class="tile"><img src="images/모습09.jpg" alt="텃밭 관찰 활동"></div>
+      <div class="tile"><img src="images/모습10.jpg" alt="텃밭에 물 주는 아이"></div>
+      <div class="tile"><img src="images/모습11.jpg" alt="바깥 물놀이"></div>
+      <div class="tile"><img src="images/모습12.jpg" alt="텃밭 가꾸기"></div>
     </div>
   </div>
 </section>
@@ -1705,11 +1829,14 @@ footer .song-btn.playing { border-color: var(--accent-3); color: var(--accent-3)
       <div class="open-banner-head">
         <div class="open-banner-text">
           <h3>부모님과 함께 만드는<br>열린어린이집</h3>
-          <p>신안어린이집은 부모님이 보육과정과 어린이집 운영에 함께 참여하고,<br>
-          아이들의 생활을 가까이에서 이해할 수 있도록 열린 소통을 이어갑니다.</p>
+          <p>신안어린이집은 부모님이 보육과정과<br>
+          어린이집 운영에 함께 참여하고,<br>
+          아이들의 생활을 가까이에서 이해할 수 있도록<br>
+          열린 소통을 이어갑니다.</p>
           <p>운영위원회, 부모참여활동, 어린이집 참관, 만족도조사,<br>
           지역사회 및 어린이집 간 연계를 통해<br>
-          가정과 어린이집이 서로 믿고 협력하는 보육환경을 만들어갑니다.</p>
+          가정과 어린이집이 서로 믿고 협력하는<br>
+          보육환경을 만들어갑니다.</p>
         </div>
         <div class="open-banner-photo">
           <img src="images/열린어린이집.png" alt="부모참여활동으로 열린 신안어린이집">
@@ -1731,9 +1858,9 @@ footer .song-btn.playing { border-color: var(--accent-3); color: var(--accent-3)
         </div>
       </div>
 
-      <p class="open-foot">열린어린이집은 단순히 공간을 개방하는 것이 아니라, 부모 참여와 소통, 투명한 운영, 지역사회 연계 등 일정 기준을 충족한 어린이집을 지자체가 선정하는 제도입니다.</p>
+      <p class="open-foot">열린어린이집은 단순히 공간을 개방하는 것이 아니라,<br>부모 참여와 소통, 투명한 운영, 지역사회 연계 등 일정 기준을<br>충족한 어린이집을 지자체가 선정하는 제도입니다.</p>
 
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLSeE2_OElRgYpgyWq9ctGeNe-07FV5KjS9YPMSbN8Xub4FgqvA/viewform?usp=header" target="_blank" rel="noopener" class="btn btn-primary" style="background:var(--accent);color:var(--ink);">
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSeE2_OElRgYpgyWq9ctGeNe-07FV5KjS9YPMSbN8Xub4FgqvA/viewform?usp=publish-editor" target="_blank" rel="noopener" class="btn btn-primary" style="background:var(--accent);color:var(--ink);">
         신안어린이집 참관신청하기
         <svg class="arrow-inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </a>
@@ -1749,7 +1876,7 @@ footer .song-btn.playing { border-color: var(--accent-3); color: var(--accent-3)
         <span class="label">급식과 영양</span>
         <h2>잘 먹는 하루가<br>건강하게 자라는 힘이 됩니다</h2>
       </div>
-      <p>신안어린이집은 아이들이 매일 먹는 한 끼를 소중하게 생각합니다.<br>신선한 재료와 정성스러운 조리, 철저한 위생관리를 바탕으로<br>아이들이 안심하고 즐겁게 식사할 수 있도록 합니다.</p>
+      <p>신안어린이집은 아이들이 매일 먹는 한 끼를<br>소중하게 생각합니다.<br>신선한 재료와 정성스러운 조리, 철저한 위생관리를 바탕으로<br>아이들이 안심하고 즐겁게 식사할 수 있도록 합니다.</p>
     </div>
 
     <div class="meal-top">
@@ -1813,7 +1940,7 @@ footer .song-btn.playing { border-color: var(--accent-3); color: var(--accent-3)
         <span class="label">Visit Us</span>
         <h2>언제든 편안하게<br>방문해 주세요</h2>
       </div>
-      <p>원내 투어는 사전 예약제로 운영합니다. 카카오톡 혹은 전화로 편한 시간을 알려주세요.</p>
+      <p>원내 투어는 사전 예약제로 운영합니다.<br>카카오톡 혹은 전화로 편한 시간을 알려주세요.</p>
     </div>
     <div class="location-grid">
       <div class="location-info">
@@ -1823,7 +1950,7 @@ footer .song-btn.playing { border-color: var(--accent-3); color: var(--accent-3)
           <div class="info-row"><strong>전화</strong><span class="val">055-973-9970</span></div>
           <div class="info-row"><strong>운영시간</strong><span class="val">07:30 – 19:30</span></div>
           <div class="info-row"><strong>카카오톡</strong><span class="val">오픈채팅 상담 가능</span></div>
-          <div class="info-row"><strong>인스타그램</strong><span class="val">@happysinan</span></div>
+          <div class="info-row"><strong>인스타그램</strong><span class="val"><a href="https://www.instagram.com/happysinan/" target="_blank" rel="noopener">@happysinan</a></span></div>
         </div>
         <div class="location-btns">
           <a href="tel:055-973-9970" class="btn btn-ghost">
@@ -1969,6 +2096,15 @@ footer .song-btn.playing { border-color: var(--accent-3); color: var(--accent-3)
       }
     });
   });
+
+  /* 원장 편지 접기/펼치기 (모바일 전용) */
+  function toggleLetter() {
+    const more = document.getElementById('letterMore');
+    const btn = document.getElementById('letterToggle');
+    const open = more.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.querySelector('span').textContent = open ? '편지 접기' : '편지 전체 보기';
+  }
 
   /* BGM 재생 (반복 재생, 푸터·하단바 버튼 동기화) */
   function toggleSong() {
