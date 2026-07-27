@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>신안어린이집 입학설명서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FBF5EE; --card:#FFFFFF; --deep:#F2DBC5;
+  --accent:#F4B896; --accent-2:#E89B8B; --accent-3:#C67B6B;
+  --ink:#3D2E27; --ink-soft:#6B5648; --ink-mute:#9A8578;
+  --line:#EADFD3;
+  --serif:"Nanum Myeongjo","Gowun Batang",serif;
+  --sans:"Pretendard Variable",Pretendard,-apple-system,"맑은 고딕","Malgun Gothic",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--sans);color:var(--ink);background:#DDD3C8;line-height:1.7;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:700;line-height:1.35;word-break:keep-all;}
+p,li,td,th{word-break:keep-all;}
+
+.page{
+  width:210mm;min-height:297mm;background:var(--bg);
+  margin:0 auto 10mm;padding:18mm 17mm 15mm;position:relative;
+  box-shadow:0 4px 24px rgba(0,0,0,.18);
+}
+
+/* ---------- 표지 ---------- */
+.cover{padding:0;overflow:hidden;display:flex;flex-direction:column;}
+.cover-photo{height:132mm;position:relative;overflow:hidden;}
+.cover-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+.cover-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(45,32,24,.55),rgba(45,32,24,.05) 55%);}
+.cover-body{flex:1;padding:16mm 17mm;display:flex;flex-direction:column;}
+.cover-eyebrow{font-size:11pt;letter-spacing:.18em;color:var(--accent-3);margin-bottom:7mm;}
+.cover h1{font-size:30pt;line-height:1.32;margin-bottom:8mm;}
+.cover h1 em{font-style:normal;color:var(--accent-3);}
+.cover-lead{font-size:11pt;color:var(--ink-soft);line-height:2;margin-bottom:auto;}
+.cover-foot{border-top:1px solid var(--line);padding-top:6mm;display:flex;justify-content:space-between;align-items:flex-end;gap:10mm;}
+.cover-foot .name{font-family:var(--serif);font-size:15pt;font-weight:700;}
+.cover-foot .sub{font-size:9.5pt;color:var(--ink-mute);margin-top:2mm;line-height:1.7;}
+.cover-foot .meta{font-size:9.5pt;color:var(--ink-soft);text-align:right;line-height:1.9;}
+
+/* ---------- 공통 ---------- */
+.sec{margin-bottom:11mm;}
+.sec:last-child{margin-bottom:0;}
+.sec-label{
+  display:inline-block;font-size:9pt;letter-spacing:.14em;color:var(--accent-3);
+  border:1px solid var(--accent);border-radius:99px;padding:1.6mm 4mm;margin-bottom:4mm;
+}
+.sec h2{font-size:17pt;margin-bottom:4mm;}
+.sec > p{font-size:10.5pt;color:var(--ink-soft);line-height:1.95;}
+.sec > p + p{margin-top:3mm;}
+
+.page-head{
+  display:flex;justify-content:space-between;align-items:baseline;
+  border-bottom:1.5px solid var(--ink);padding-bottom:3mm;margin-bottom:9mm;
+}
+.page-head .t{font-family:var(--serif);font-size:12pt;font-weight:700;}
+.page-head .n{font-size:9pt;color:var(--ink-mute);letter-spacing:.1em;}
+
+/* 원장 인사말 */
+.letter{background:var(--card);border-radius:6mm;padding:10mm 11mm;border:1px solid var(--line);}
+.letter p{font-size:10.5pt;color:var(--ink-soft);line-height:2.05;}
+.letter p + p{margin-top:4mm;}
+.letter .quote{
+  font-family:var(--serif);font-size:13pt;font-weight:700;color:var(--ink);
+  line-height:1.75;margin-bottom:6mm;padding-left:5mm;border-left:2.5px solid var(--accent);
+}
+.letter .sig{margin-top:6mm;text-align:right;font-family:var(--serif);font-size:11pt;color:var(--ink);}
+
+/* 정보 표 */
+.info-table{width:100%;border-collapse:collapse;font-size:10pt;}
+.info-table th,.info-table td{padding:3.4mm 4mm;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;}
+.info-table th{width:30mm;color:var(--ink);font-weight:700;background:rgba(242,219,197,.35);}
+.info-table td{color:var(--ink-soft);}
+
+/* 카드 그리드 */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:5mm;}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:4mm;}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:3.5mm;}
+.card{background:var(--card);border:1px solid var(--line);border-radius:4mm;padding:6mm 6mm 6.5mm;}
+.card h4{font-size:11.5pt;margin-bottom:2.5mm;}
+.card p{font-size:9.5pt;color:var(--ink-soft);line-height:1.75;}
+.card .n{
+  display:inline-flex;align-items:center;justify-content:center;width:8mm;height:8mm;border-radius:50%;
+  background:var(--deep);color:var(--accent-3);font-family:var(--serif);font-weight:700;font-size:10pt;margin-bottom:3mm;
+}
+
+/* 반 목록 */
+.class-row{display:grid;grid-template-columns:repeat(4,1fr);gap:3mm;}
+.class-chip{background:var(--card);border:1px solid var(--line);border-radius:3mm;padding:4mm;text-align:center;}
+.class-chip .age{font-size:8.5pt;color:var(--accent-3);display:block;margin-bottom:1.5mm;}
+.class-chip .nm{font-family:var(--serif);font-size:10.5pt;font-weight:700;}
+
+/* 하루일과 */
+.day{border-top:1px solid var(--line);}
+.day-row{display:grid;grid-template-columns:22mm 1fr;gap:5mm;padding:3.6mm 0;border-bottom:1px solid var(--line);align-items:baseline;}
+.day-row .tm{font-family:var(--serif);font-weight:700;font-size:10.5pt;color:var(--accent-3);}
+.day-row .ct strong{display:block;font-size:10.5pt;margin-bottom:1mm;}
+.day-row .ct span{font-size:9.5pt;color:var(--ink-soft);line-height:1.7;}
+
+/* 체크리스트 */
+.check{list-style:none;}
+.check li{position:relative;padding-left:6mm;font-size:10pt;color:var(--ink-soft);line-height:1.9;}
+.check li::before{content:"";position:absolute;left:0;top:3.2mm;width:2mm;height:2mm;border-radius:50%;background:var(--accent-2);}
+
+/* 강조 박스 */
+.note{background:var(--deep);border-radius:4mm;padding:6mm 7mm;}
+.note h4{font-size:11pt;margin-bottom:2.5mm;color:var(--ink);}
+.note p{font-size:9.8pt;color:var(--ink-soft);line-height:1.85;}
+
+/* 사진 */
+.photo{border-radius:4mm;overflow:hidden;height:52mm;}
+.photo img{width:100%;height:100%;object-fit:cover;display:block;}
+.photo-sm{height:38mm;}
+
+/* 연간행사 */
+.year{display:grid;grid-template-columns:repeat(2,1fr);gap:2.5mm 6mm;}
+.year-item{display:grid;grid-template-columns:14mm 1fr;font-size:9.8pt;padding:2.2mm 0;border-bottom:1px dashed var(--line);}
+.year-item .m{font-family:var(--serif);font-weight:700;color:var(--accent-3);}
+.year-item .e{color:var(--ink-soft);}
+
+/* 문의 */
+.contact{background:var(--ink);color:var(--bg);border-radius:6mm;padding:10mm 11mm;display:grid;grid-template-columns:1fr auto;gap:10mm;align-items:center;}
+.contact h3{font-size:15pt;color:#fff;margin-bottom:3mm;}
+.contact p{font-size:10pt;color:rgba(251,245,238,.78);line-height:1.9;}
+.contact .qr{width:32mm;height:32mm;border-radius:3mm;overflow:hidden;}
+.contact .qr img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;}
+.contact .qr-cap{font-size:8pt;color:rgba(251,245,238,.7);text-align:center;margin-top:2mm;}
+
+.foot{margin-top:9mm;padding-top:4mm;border-top:1px solid var(--line);font-size:8.5pt;color:var(--ink-mute);display:flex;justify-content:space-between;}
+
+@page{size:A4;margin:0;}
+@media print{
+  body{background:#fff;}
+  .page{margin:0;box-shadow:none;page-break-after:always;}
+  .page:last-child{page-break-after:auto;}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ 1. 표지 ============ -->
+<div class="page cover">
+  <div class="cover-photo"><img src="images/벚꽃가로.jpg" alt="벚꽃길에 자리한 신안어린이집"></div>
+  <div class="cover-body">
+    <div class="cover-eyebrow">SINCE 1999 · 산청 국공립</div>
+    <h1>어린이 한 명은<br>언제나 <em>온전한 한 명</em>입니다</h1>
+    <p class="cover-lead">
+      신안어린이집 입학설명서<br>
+      학기 중에 새로 만나는 아이와 부모님을 위해<br>
+      저희 어린이집의 하루와 약속을 정리했습니다.
+    </p>
+    <div class="cover-foot">
+      <div>
+        <div class="name">신안어린이집</div>
+        <div class="sub">경남 산청군 신안면 원지강변로 95<br>055-973-9970</div>
+      </div>
+      <div class="meta">
+        운영시간 07:30 – 19:30<br>
+        대상 연령 만 0세 ~ 5세<br>
+        2026년 기준
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 2. 인사말 ============ -->
+<div class="page">
+  <div class="page-head"><span class="t">원장 인사말</span><span class="n">01</span></div>
+
+  <div class="sec">
+    <div class="letter">
+      <p class="quote">어린이가 작다고 해서<br>그 존재까지 작은 것은 아닙니다.</p>
+      <p>안녕하세요. 신안어린이집입니다.</p>
+      <p>
+        저희는 1999년에 문을 열어 지금까지 산청 신안면에서 아이들과 지내고 있습니다.
+        어린이집 앞으로 강변길이 있어 봄이면 벚꽃이 핍니다. 아이들과 그 길을 자주 걷습니다.
+      </p>
+      <p>
+        오래 아이들과 지내다 보니 알게 된 것이 있습니다.
+        아이는 재촉한다고 빨리 자라지 않습니다. 기다려 준 만큼 저마다의 속도로 자랍니다.
+        그래서 저희는 아이를 어른의 기준에 맞추기보다, 아이가 바라보는 높이에서 하루를 살펴보려 합니다.
+        무엇을 오래 바라보는지, 어떤 놀이를 하고 싶어 하는지 천천히 들여다봅니다.
+      </p>
+      <p>
+        학기 중에 새로 오는 아이는 이미 서로 익숙해진 친구들 사이로 들어오게 됩니다.
+        낯설고 조심스러운 것이 당연합니다. 저희는 그 마음을 재촉하지 않겠습니다.
+        아이가 자기 속도로 이곳을 편안하게 느낄 때까지 곁에서 기다리겠습니다.
+      </p>
+      <div class="sig">신안어린이집 원장 드림</div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <span class="sec-label">우리의 바람</span>
+    <h2>밝고, 지혜롭고, 건강한 어린이</h2>
+    <div class="grid-3">
+      <div class="card">
+        <h4>밝고</h4>
+        <p>마음이 편안해야 웃을 수 있습니다. 아이가 안정감을 느끼고 자기 생각을 마음껏 펼치는 곳이 되겠습니다.</p>
+      </div>
+      <div class="card">
+        <h4>지혜롭고</h4>
+        <p>놀이 속에서 스스로 궁금해하고 시도해 봅니다. 각자의 흥미와 속도에 맞춰 자라도록 기다립니다.</p>
+      </div>
+      <div class="card">
+        <h4>건강한 어린이</h4>
+        <p>몸과 마음을 함께 살핍니다. 스스로를 조절하며 친구들과 어울리는 힘을 천천히 길러갑니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot"><span>신안어린이집 입학설명서</span><span>055-973-9970</span></div>
+</div>
+
+<!-- ============ 3. 기본 안내 ============ -->
+<div class="page">
+  <div class="page-head"><span class="t">어린이집 안내</span><span class="n">02</span></div>
+
+  <div class="sec">
+    <span class="sec-label">기본 정보</span>
+    <h2>한눈에 보는 신안어린이집</h2>
+    <table class="info-table">
+      <tr><th>개원</th><td>1999년 (산청군 국공립 어린이집)</td></tr>
+      <tr><th>주소</th><td>경남 산청군 신안면 원지강변로 95</td></tr>
+      <tr><th>연락처</th><td>055-973-9970 · 인스타그램 @happysinan</td></tr>
+      <tr><th>운영시간</th><td>07:30 – 19:30 (기본보육 09:00 – 16:00 / 연장보육 16:00 – 19:30)</td></tr>
+      <tr><th>보육정원</th><td>63명 (만 0세 ~ 만 5세)</td></tr>
+      <tr><th>시설</th><td>2층 건물 · 대지 1,036㎡(약 313평) · 전용면적 634.73㎡(약 192평)<br>보육실 5 · 강당(유희실) · 놀이터 · 급식방 · 조리실 · 자료방 · 양호실</td></tr>
+      <tr><th>교직원</th><td>총 11명 — 원장 1 · 담임교사 6 · 보조교사 2 · 조리사 1 · 운전기사 1</td></tr>
+      <tr><th>통학차량</th><td>운행 (운영자 · 운전자 · 동승자 안전교육 이수)</td></tr>
+    </table>
+  </div>
+
+  <div class="sec">
+    <span class="sec-label">학급 편성</span>
+    <h2>일곱 개의 반, 저마다의 이름</h2>
+    <div class="class-row" style="margin-bottom:3mm;">
+      <div class="class-chip"><span class="age">만 0세</span><span class="nm">이슬소리A반</span></div>
+      <div class="class-chip"><span class="age">만 0세</span><span class="nm">이슬소리B반</span></div>
+      <div class="class-chip"><span class="age">만 1세</span><span class="nm">풀잎소리반</span></div>
+      <div class="class-chip"><span class="age">만 2세</span><span class="nm">꽃잎소리A반</span></div>
+    </div>
+    <div class="class-row">
+      <div class="class-chip"><span class="age">만 2세</span><span class="nm">꽃잎소리B반</span></div>
+      <div class="class-chip"><span class="age">만 3세</span><span class="nm">산새소리반</span></div>
+      <div class="class-chip"><span class="age">만 4~5세</span><span class="nm">하늘소리반</span></div>
+      <div class="class-chip" style="background:transparent;border-style:dashed;">
+        <span class="age">반 배정</span><span class="nm" style="font-size:9pt;color:var(--ink-mute);">상담 후 안내</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="photo"><img src="images/로비.jpg" alt="신안어린이집 1층 로비"></div>
+  </div>
+
+  <div class="foot"><span>신안어린이집 입학설명서</span><span>055-973-9970</span></div>
+</div>
+
+<!-- ============ 4. 하루 일과 ============ -->
+<div class="page">
+  <div class="page-head"><span class="t">하루의 흐름</span><span class="n">03</span></div>
+
+  <div class="sec">
+    <span class="sec-label">하루 일과</span>
+    <h2>리듬이 있는 시간</h2>
+    <p>예측 가능한 하루의 리듬은 아이에게 안정감을 줍니다.<br>놀이와 쉼이 자연스럽게 이어지도록 하루를 짭니다.</p>
+  </div>
+
+  <div class="sec day">
+    <div class="day-row"><span class="tm">07:30</span><span class="ct"><strong>등원 및 맞이</strong><span>선생님과 눈을 맞추며 인사하고, 건강 상태와 기분을 살피며 편안하게 하루를 시작합니다.</span></span></div>
+    <div class="day-row"><span class="tm">09:00</span><span class="ct"><strong>오전 자유놀이</strong><span>아이들이 자신의 흥미와 관심에 따라 놀이를 선택하고 자유롭게 탐색합니다.</span></span></div>
+    <div class="day-row"><span class="tm">10:00</span><span class="ct"><strong>오전 간식</strong><span>준비된 간식을 함께 먹으며 즐겁고 건강한 식습관을 익힙니다.</span></span></div>
+    <div class="day-row"><span class="tm">10:20</span><span class="ct"><strong>놀이 중심 활동 및 실외놀이</strong><span>아이들의 흥미에서 시작된 놀이를 충분히 이어갑니다. 반별 상황에 따라 바깥놀이, 산책, 도서관 방문 등 다양한 경험이 함께 이루어집니다.</span></span></div>
+    <div class="day-row"><span class="tm">12:20</span><span class="ct"><strong>점심 식사</strong><span>균형 있게 준비한 점심을 함께 먹으며 음식의 맛과 즐거움을 경험하고, 바른 식습관을 익힙니다.</span></span></div>
+    <div class="day-row"><span class="tm">13:00</span><span class="ct"><strong>낮잠 및 휴식 · 유아반 놀이</strong><span>영아는 편안하게 낮잠과 휴식을 취합니다. 유아는 오전 놀이를 확장하거나 특별활동에 참여합니다.</span></span></div>
+    <div class="day-row"><span class="tm">15:00</span><span class="ct"><strong>오후 간식 및 하원 준비</strong><span>오후 간식을 먹고, 하루를 돌아보며 개인 소지품을 정리하고 하원을 준비합니다.</span></span></div>
+    <div class="day-row"><span class="tm">16:00</span><span class="ct"><strong>연장보육 및 순차 하원</strong><span>편안한 놀이를 이어가며 하루 이야기를 나누고 안전하게 순차적으로 하원합니다.</span></span></div>
+  </div>
+
+  <div class="sec">
+    <span class="sec-label">놀이로 자라는 교육과정</span>
+    <h2>아이들의 놀이가 곧 배움의 시작입니다</h2>
+    <p>
+      국가 수준의 보육과정인 「0-5세 어린이집 표준보육과정」을 토대로,
+      아이가 스스로 고르고 몰입하는 놀이 속에서 배움이 일어나도록 돕습니다.
+      기본생활 · 신체운동/건강 · 의사소통 · 사회관계 · 예술경험 · 자연탐구,
+      여섯 개 영역이 놀이 안에서 자연스럽게 이어집니다.
+    </p>
+  </div>
+
+  <div class="foot"><span>신안어린이집 입학설명서</span><span>055-973-9970</span></div>
+</div>
+
+<!-- ============ 5. 초기적응 ============ -->
+<div class="page">
+  <div class="page-head"><span class="t">처음 만나는 신안</span><span class="n">04</span></div>
+
+  <div class="sec">
+    <span class="sec-label">초기적응 프로그램</span>
+    <h2>천천히 와도 괜찮습니다</h2>
+    <p>
+      어린이집 초기적응 프로그램은 처음 입소하는 영유아가 낯선 환경에 자연스럽게 적응하도록 돕습니다.
+      보호자와의 분리를 두려워하지 않고 어린이집을 안전하고 편안하게 느낄 수 있으며,
+      새로운 교사와 또래에 대한 친밀감을 느끼고 어린이집 생활에 더욱 잘 적응합니다.
+    </p>
+    <p>
+      아래 단계는 정해진 일정이 아니라 아이의 상태를 보며 함께 조절합니다.
+      학기 중 입소하는 아이의 경우, 반 상황과 아이의 성향을 고려해 기간을 넉넉히 잡습니다.
+    </p>
+  </div>
+
+  <div class="sec grid-4">
+    <div class="card"><span class="n">1</span><h4>환경에<br>친숙해지기</h4><p>등원해서 실내를 둘러보고 잠깐 놀다 갑니다.</p></div>
+    <div class="card"><span class="n">2</span><h4>교사와<br>친밀해지기</h4><p>선생님과 함께 간식을 먹고 자유놀이를 합니다.</p></div>
+    <div class="card"><span class="n">3</span><h4>주양육자와<br>분리하기</h4><p>점심 식사까지 함께하며 하루를 보냅니다.</p></div>
+    <div class="card"><span class="n">4</span><h4>하루 일과<br>적응</h4><p>낮잠까지 마치고 하루 일과를 온전히 지냅니다.</p></div>
+  </div>
+
+  <div class="sec grid-2">
+    <div class="note">
+      <h4>입소 전 준비물</h4>
+      <p>
+        여벌 옷 2벌 이상 · 기저귀와 물티슈(영아반) · 낮잠 이불 · 실내화 · 개인 물컵<br>
+        모든 물건에는 아이의 이름을 적어 주세요. 자세한 목록은 반 배정 후 담임교사가 안내드립니다.
+      </p>
+    </div>
+    <div class="note">
+      <h4>입소 시 제출 서류</h4>
+      <p>
+        아동 기본정보 · 응급처치 동의서 · 예방접종 확인서 · 아동 건강 관련 특이사항<br>
+        식품알레르기가 있는 경우 미리 알려주시면 대체식으로 따로 준비합니다.
+      </p>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="photo photo-sm"><img src="images/그림책공간2.jpg" alt="아이들이 머무는 공간"></div>
+  </div>
+
+  <div class="foot"><span>신안어린이집 입학설명서</span><span>055-973-9970</span></div>
+</div>
+
+<!-- ============ 6. 신안의 일상과 놀이 ============ -->
+<div class="page">
+  <div class="page-head"><span class="t">신안의 일상과 놀이</span><span class="n">05</span></div>
+
+  <div class="sec">
+    <span class="sec-label">신안의 일상</span>
+    <h2>하루에 하루를 더하는 하루</h2>
+    <div class="grid-4">
+      <div class="card"><h4>오감융합놀이</h4><p>두부, 알로에, 국수, 옥수수, 귤 등 식재료를 손으로 만지고 뭉개며 감각을 깨웁니다.</p></div>
+      <div class="card"><h4>그림책으로<br>만나는 세상</h4><p>달마다 그림책 한 권을 깊이 만납니다. 책에서 시작해 놀이로 이어집니다.</p></div>
+      <div class="card"><h4>꼬마 정원사</h4><p>원 앞 텃밭에 씨앗을 심고 물을 줍니다. 자라고 열매 맺는 과정을 한 해 동안 지켜봅니다.</p></div>
+      <div class="card"><h4>온 우주를 품은<br>너의 날</h4><p>생일을 맞은 아이에게는 유기그릇에 정식으로 상을 차립니다. 그날은 온전히 주인공입니다.</p></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <span class="sec-label">신안의 특별한 놀이</span>
+    <h2>놀이와 배움이 이어지는 시간</h2>
+    <table class="info-table">
+      <tr><th>영유아 체육</th><td>만 2~5세 · 기초 신체활동을 중심으로 마음껏 움직이며 몸의 즐거움을 배웁니다.</td></tr>
+      <tr><th>키즈 스피치</th><td>만 3~5세 · 내 생각을 말로 옮기고, 친구들 앞에서 이야기해 보는 연습을 합니다.</td></tr>
+      <tr><th>놀이영어</th><td>만 2~5세 · 한솔 TalkTalk과 Oxford Reading Tree로 한국인 · 원어민 선생님을 함께 만납니다.</td></tr>
+      <tr><th>코앤코 뮤직</th><td>만 2~5세 · 음악을 중심으로 몸짓과 표현이 함께 어우러지는 통합 예술 활동입니다.</td></tr>
+    </table>
+  </div>
+
+  <div class="sec">
+    <span class="sec-label">우리동네 배움터</span>
+    <h2>걸어서 만나는 동네의 배움</h2>
+    <p>
+      어린이집은 도서관과 수영장, 산책길 등 배움이 이어지는 공간과 가까이 자리하고 있습니다.
+      아이들은 문을 나서 걸어서 지역을 만나고, 익숙한 동네 곳곳에서 일상 속 배움을 넓혀갑니다.
+    </p>
+    <div class="grid-4" style="margin-top:4mm;">
+      <div class="card"><h4>지리산 도서관</h4><p>매주 한 번, 걸어서 도서관에 갑니다.</p></div>
+      <div class="card"><h4>신안 강변산책</h4><p>강변길을 걸으며 계절과 자연을 만납니다.</p></div>
+      <div class="card"><h4>실내 공공놀이터</h4><p>날씨와 상관없이 마음껏 움직이고 놀이합니다.</p></div>
+      <div class="card"><h4>남부문화<br>체육센터 수영장</h4><p>여름이면 유아반은 걸어서 수영장으로 향합니다.</p></div>
+    </div>
+  </div>
+
+  <div class="foot"><span>신안어린이집 입학설명서</span><span>055-973-9970</span></div>
+</div>
+
+<!-- ============ 7. 안심 보육 ============ -->
+<div class="page">
+  <div class="page-head"><span class="t">안심 보육</span><span class="n">06</span></div>
+
+  <div class="sec grid-2">
+    <div>
+      <span class="sec-label">안전 관리</span>
+      <h2 style="font-size:14pt;margin-bottom:3.5mm;">사고가 나지 않도록,<br>그리고 만약을 위해</h2>
+      <ul class="check">
+        <li>건물과 놀이기구 수시 안전점검</li>
+        <li>매월 소방 대피훈련 실시</li>
+        <li>연간 안전교육 계획에 따른 정기 교육</li>
+        <li>어린이집안전공제회 가입 (배상 · 화재 · 놀이시설)</li>
+        <li>영유아보육법에 따른 CCTV 설치 · 운영</li>
+      </ul>
+    </div>
+    <div>
+      <span class="sec-label">건강 관리</span>
+      <h2 style="font-size:14pt;margin-bottom:3.5mm;">매일 살피고,<br>아프면 바로 알립니다</h2>
+      <ul class="check">
+        <li>등원 시 일일 건강 체크</li>
+        <li>연 1회 이상 정기 건강검진</li>
+        <li>매일 1회 이상 방역, 놀이감 정기 소독</li>
+        <li>감염병 발생 시 즉시 안내 및 대응</li>
+        <li>투약의뢰서에 따른 정확한 투약 관리</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec">
+    <span class="sec-label">급식과 영양</span>
+    <h2>잘 먹는 하루가 건강하게 자라는 힘이 됩니다</h2>
+    <table class="info-table">
+      <tr><th>조리</th><td>매일 원내에서 정성껏 조리하며, 신선하고 안전한 식재료를 꼼꼼히 살핍니다.</td></tr>
+      <tr><th>영양</th><td>영유아의 입맛과 건강을 고려해 순하고 균형 있게 조리합니다.</td></tr>
+      <tr><th>위생</th><td>집단급식소 기준에 따라 조리부터 배식까지 위생적으로 관리합니다.</td></tr>
+      <tr><th>간식</th><td>오전과 오후 간식을 제공하며, 주 2회는 신선한 과일을 함께 제공합니다.</td></tr>
+      <tr><th>알레르기</th><td>알레르기가 있는 아이는 대체식으로 따로 준비합니다.</td></tr>
+      <tr><th>안내</th><td>한 달 식단을 미리 가정으로 보내드리고, 그날의 급·간식은 키즈노트로 사진과 함께 알려드립니다.</td></tr>
+    </table>
+  </div>
+
+  <div class="sec">
+    <span class="sec-label">열린어린이집</span>
+    <h2>부모님과 함께 만듭니다</h2>
+    <p>
+      신안어린이집은 부모님이 보육과정과 어린이집 운영에 함께 참여하고,
+      아이들의 생활을 가까이에서 이해할 수 있도록 열린 소통을 이어갑니다.
+      운영위원회를 연 4회 개최하고, 어린이집 참관과 부모참여수업을 통해 아이들의 생활과 보육과정을 함께 나눕니다.
+    </p>
+  </div>
+
+  <div class="foot"><span>신안어린이집 입학설명서</span><span>055-973-9970</span></div>
+</div>
+
+<!-- ============ 8. 한 해의 이야기 · 문의 ============ -->
+<div class="page">
+  <div class="page-head"><span class="t">한 해의 이야기</span><span class="n">07</span></div>
+
+  <div class="sec">
+    <span class="sec-label">연간 행사</span>
+    <h2>아이들의 축제가 되는 시간</h2>
+    <p>계절을 따라 한 해가 흘러갑니다. 매년 반복되지만, 아이들에게는 매번 처음인 하루들입니다.</p>
+    <div class="year" style="margin-top:5mm;">
+      <div class="year-item"><span class="m">3월</span><span class="e">입학식 · 신입 적응기간</span></div>
+      <div class="year-item"><span class="m">4월</span><span class="e">봄소풍 · 학부모 상담</span></div>
+      <div class="year-item"><span class="m">5월</span><span class="e">으랏차차 운동회 · 캠핑데이</span></div>
+      <div class="year-item"><span class="m">6월</span><span class="e">원내 참여수업</span></div>
+      <div class="year-item"><span class="m">7·8월</span><span class="e">물놀이 · 신안 워터파크 · 졸업생 동창회</span></div>
+      <div class="year-item"><span class="m">9월</span><span class="e">추석 마중놀이</span></div>
+      <div class="year-item"><span class="m">10월</span><span class="e">가을소풍 · 학부모 상담 · 소방 합동훈련</span></div>
+      <div class="year-item"><span class="m">11월</span><span class="e">참관수업 · 특별활동 오픈수업</span></div>
+      <div class="year-item"><span class="m">12월</span><span class="e">'작은 손 큰 꿈' 발표회 · 산타행사</span></div>
+      <div class="year-item"><span class="m">1월</span><span class="e">요양원 재롱나눔</span></div>
+      <div class="year-item"><span class="m">2월</span><span class="e">설 마중놀이 · 졸업과 진급</span></div>
+      <div class="year-item"><span class="m">비고</span><span class="e">놀이 흐름에 따라 유연하게 조정</span></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <span class="sec-label">소통</span>
+    <h2>매일의 이야기를 나눕니다</h2>
+    <div class="grid-3">
+      <div class="card"><h4>키즈노트</h4><p>그날의 놀이와 급·간식, 아이의 하루를 사진과 함께 매일 알려드립니다.</p></div>
+      <div class="card"><h4>인스타그램</h4><p>@happysinan — 놀이하는 모습과 계절이 바뀌는 원 앞 풍경을 담습니다.</p></div>
+      <div class="card"><h4>상담</h4><p>연 2회 정기 상담 외에도, 필요할 때 언제든 편하게 연락 주세요.</p></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="contact">
+      <div>
+        <h3>먼저 한번 보러 오세요</h3>
+        <p>
+          글과 사진으로는 다 담기지 않습니다. 편한 시간에 오셔서 교실을 둘러보시고,
+          궁금한 것을 물어봐 주세요. 원내 투어는 사전 예약제로 운영합니다.<br><br>
+          <strong style="color:#fff;">055-973-9970</strong> · 경남 산청군 신안면 원지강변로 95<br>
+          입소 대기 신청은 아이사랑 포털(childcare.go.kr)에서 하실 수 있습니다.
+        </p>
+      </div>
+      <div>
+        <div class="qr"><img src="images/인스타큐알.png" alt="신안어린이집 인스타그램 QR"></div>
+        <div class="qr-cap">인스타그램<br>@happysinan</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot"><span>신안어린이집 입학설명서 · 2026</span><span>happysinan.github.io/sinan-kindergarten</span></div>
+</div>
+
+</body>
+</html>
