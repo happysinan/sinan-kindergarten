@@ -315,7 +315,14 @@ section { padding: 120px 0; position: relative; }
 .stat-card-link { display: block; text-decoration: none; cursor: pointer; }
 .stat-card-link:hover { border-color: var(--accent); transform: translateY(-3px); }
 .stat-card-link .stat-value { color: var(--accent-3); }
-@media (max-width: 760px) { .facts-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 760px) {
+  .facts-grid { grid-template-columns: repeat(2, 1fr); }
+  .facts-grid .stat-card .stat-value { font-size: 19px; }
+}
+@media (max-width: 560px) {
+  .facts-grid { grid-template-columns: 1fr; }
+  .facts-grid .stat-card .stat-value { font-size: 22px; }
+}
 
 /* ============ section header ============ */
 .sec-head { display: grid; grid-template-columns: 1.5fr 1fr; align-items: end; gap: 40px; margin-bottom: 56px; }
@@ -324,6 +331,7 @@ section { padding: 120px 0; position: relative; }
   font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 14px; display: block;
 }
 .sec-head h2 { font-size: clamp(30px, 3.6vw, 46px); text-wrap: balance; }
+@media (max-width: 560px) { .sec-head h2 { font-size: clamp(24px, 7.5vw, 30px); } }
 .sec-head p { color: var(--ink-soft); font-size: 15px; line-height: 1.75; }
 @media (max-width: 760px) { .sec-head { grid-template-columns: 1fr; align-items: flex-start; gap: 18px; margin-bottom: 36px; } }
 
@@ -608,6 +616,7 @@ section { padding: 120px 0; position: relative; }
 .schedule-wrap { display: grid; grid-template-columns: 1fr 1.4fr; gap: 64px; align-items: start; }
 .schedule-intro-label { font-family: var(--font-body); font-size: 13px; color: var(--accent-3); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 14px; display: block; }
 .schedule-intro h2 { font-size: clamp(28px, 3.2vw, 40px); margin-bottom: 20px; }
+@media (max-width: 560px) { .schedule-intro h2 { font-size: clamp(24px, 7.5vw, 28px); } }
 .schedule-intro p { color: var(--ink-soft); font-size: 15px; line-height: 1.8; max-width: 340px; }
 .schedule-list { display: flex; flex-direction: column; border-top: 1px solid var(--line); }
 .schedule-item {
@@ -719,7 +728,7 @@ section { padding: 120px 0; position: relative; }
 .staff-total { margin-top: 18px; font-size: 14px; color: var(--ink-mute); }
 .staff-total strong { color: var(--ink); font-weight: 700; }
 @media (max-width: 760px) { .staff-grid { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 440px) { .staff-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .staff-grid { grid-template-columns: repeat(2, 1fr); } }
 
 /* ============ 신입원아 적응 ============ */
 .adapt-wrap { display: grid; grid-template-columns: 1fr 1.25fr; gap: 56px; align-items: start; }
@@ -883,6 +892,8 @@ section { padding: 120px 0; position: relative; }
 .info-row { display: grid; grid-template-columns: 120px 1fr; padding: 16px 0; border-bottom: 1px solid var(--line); font-size: 14.5px; }
 .info-row strong { font-weight: 600; color: var(--ink); }
 .info-row .val { color: var(--ink-soft); }
+.info-row .val a { color: var(--accent-3); text-decoration: underline; text-underline-offset: 3px; }
+.info-row .val a:hover { color: var(--accent-2); }
 .location-btns { display: flex; gap: 10px; margin-top: 28px; flex-wrap: wrap; }
 .map-card {
   border-radius: var(--radius-lg); overflow: hidden; min-height: 420px; position: relative;
@@ -1733,7 +1744,7 @@ footer .song-btn.playing { border-color: var(--accent-3); color: var(--accent-3)
 
       <p class="open-foot">열린어린이집은 단순히 공간을 개방하는 것이 아니라, 부모 참여와 소통, 투명한 운영, 지역사회 연계 등 일정 기준을 충족한 어린이집을 지자체가 선정하는 제도입니다.</p>
 
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLSeE2_OElRgYpgyWq9ctGeNe-07FV5KjS9YPMSbN8Xub4FgqvA/viewform?usp=header" target="_blank" rel="noopener" class="btn btn-primary" style="background:var(--accent);color:var(--ink);">
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSeE2_OElRgYpgyWq9ctGeNe-07FV5KjS9YPMSbN8Xub4FgqvA/viewform?usp=publish-editor" target="_blank" rel="noopener" class="btn btn-primary" style="background:var(--accent);color:var(--ink);">
         신안어린이집 참관신청하기
         <svg class="arrow-inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </a>
@@ -1823,7 +1834,7 @@ footer .song-btn.playing { border-color: var(--accent-3); color: var(--accent-3)
           <div class="info-row"><strong>전화</strong><span class="val">055-973-9970</span></div>
           <div class="info-row"><strong>운영시간</strong><span class="val">07:30 – 19:30</span></div>
           <div class="info-row"><strong>카카오톡</strong><span class="val">오픈채팅 상담 가능</span></div>
-          <div class="info-row"><strong>인스타그램</strong><span class="val">@happysinan</span></div>
+          <div class="info-row"><strong>인스타그램</strong><span class="val"><a href="https://www.instagram.com/happysinan/" target="_blank" rel="noopener">@happysinan</a></span></div>
         </div>
         <div class="location-btns">
           <a href="tel:055-973-9970" class="btn btn-ghost">
