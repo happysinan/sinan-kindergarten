@@ -1132,7 +1132,7 @@ footer .song-btn.playing { border-color: var(--accent-3); color: var(--accent-3)
       </span>
     </a>
     <button type="button" class="nav-bgm song-btn" onclick="toggleSong()" aria-label="신안어린이집 BGM 듣기">
-      <svg class="song-icon" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+      <svg class="song-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M11 5 6 9H3v6h3l5 4V5z" fill="currentColor"/><path d="M16 9.5l5 5M21 9.5l-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
       <span class="song-label">BGM 듣기</span>
     </button>
 
@@ -2087,10 +2087,10 @@ footer .song-btn.playing { border-color: var(--accent-3); color: var(--accent-3)
         </div>
         <p>어린이 한 명은 언제나 온전한 한 명입니다.<br>아이들의 오늘을 서두르지 않고 함께 걷겠습니다.</p>
         <button type="button" class="song-btn" onclick="toggleSong()" aria-label="신안어린이집 BGM 듣기">
-          <svg class="song-icon" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+          <svg class="song-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M11 5 6 9H3v6h3l5 4V5z" fill="currentColor"/><path d="M16 9.5l5 5M21 9.5l-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
           <span class="song-label">BGM 듣기</span>
         </button>
-        <audio id="songAudio" src="audio/원가.mp3" preload="none" loop></audio>
+        <audio id="songAudio" src="audio/원가.mp3" preload="auto" loop></audio>
       </div>
       <div>
         <h4>연락처</h4>
@@ -2170,22 +2170,65 @@ footer .song-btn.playing { border-color: var(--accent-3); color: var(--accent-3)
     btn.querySelector('span').textContent = open ? '편지 접기' : '편지 전체 보기';
   }
 
-  /* BGM 재생 (반복 재생, 푸터·하단바 버튼 동기화) */
-  function toggleSong() {
+  /* BGM 자동재생 + 스피커 아이콘 토글 (반복 재생, 상단·푸터 버튼 동기화) */
+  var toggleSong;
+  (function () {
     const audio = document.getElementById('songAudio');
-    if (audio.paused) { audio.play(); } else { audio.pause(); }
-    const isPlaying = !audio.paused;
-    document.querySelectorAll('.song-btn').forEach(function (btn) {
-      const icon = btn.querySelector('.song-icon');
-      const label = btn.querySelector('.song-label');
-      btn.classList.toggle('playing', isPlaying);
-      if (icon) icon.innerHTML = isPlaying
-        ? '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>'
-        : '<polygon points="6 4 20 12 6 20 6 4"/>';
-      if (label) label.textContent = isPlaying ? 'BGM 재생 중 · 멈추기' : 'BGM 듣기';
-      btn.setAttribute('aria-label', isPlaying ? '신안어린이집 BGM 정지' : '신안어린이집 BGM 듣기');
-    });
-  }
+    if (!audio) return;
+
+    const ICON_ON =
+      '<path d="M11 5 6 9H3v6h3l5 4V5z" fill="currentColor"/>' +
+      '<path d="M15.4 8.6a4.8 4.8 0 0 1 0 6.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>' +
+      '<path d="M18.4 5.8a8.8 8.8 0 0 1 0 12.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>';
+    const ICON_OFF =
+      '<path d="M11 5 6 9H3v6h3l5 4V5z" fill="currentColor"/>' +
+      '<path d="M16 9.5l5 5M21 9.5l-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>';
+
+    let userStopped = false;
+
+    function sync() {
+      const isPlaying = !audio.paused;
+      document.querySelectorAll('.song-btn').forEach(function (btn) {
+        const icon = btn.querySelector('.song-icon');
+        const label = btn.querySelector('.song-label');
+        btn.classList.toggle('playing', isPlaying);
+        if (icon) icon.innerHTML = isPlaying ? ICON_ON : ICON_OFF;
+        if (label) label.textContent = isPlaying ? 'BGM 끄기' : 'BGM 듣기';
+        btn.setAttribute('aria-label', isPlaying ? '신안어린이집 BGM 끄기' : '신안어린이집 BGM 듣기');
+      });
+    }
+
+    audio.addEventListener('play', sync);
+    audio.addEventListener('pause', sync);
+
+    toggleSong = function () {
+      if (audio.paused) {
+        userStopped = false;
+        audio.play().catch(function () {});
+      } else {
+        userStopped = true;
+        audio.pause();
+      }
+    };
+
+    /* 브라우저가 소리 있는 자동재생을 막으면, 첫 화면 조작 때 자연스럽게 시작 */
+    function armFirstInteraction() {
+      const events = ['pointerdown', 'keydown', 'touchstart', 'scroll'];
+      function start() {
+        events.forEach(function (e) { window.removeEventListener(e, start); });
+        if (userStopped || !audio.paused) return;
+        audio.play().catch(function () {});
+      }
+      events.forEach(function (e) { window.addEventListener(e, start, { passive: true }); });
+    }
+
+    audio.volume = 0.5;
+    const attempt = audio.play();
+    if (attempt && typeof attempt.catch === 'function') {
+      attempt.catch(armFirstInteraction);
+    }
+    sync();
+  })();
 
   /* 마우스를 따라오는 로고 */
   (function () {
